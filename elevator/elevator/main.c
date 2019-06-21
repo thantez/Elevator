@@ -2,7 +2,7 @@
 * asansor.c
 *
 * Created: 6/11/2019 8:56:32 PM
-* Author : HomePC
+* Author : Thantez
 */
 
 // defines
@@ -53,7 +53,7 @@ ISR(ADC_vect){
 	int temp = (unsigned int)((ADCW * 4.88)/10);;
 	if(temp > 35){
 		PORTA |= (1 << 3);
-	} else {
+		} else {
 		PORTA &= 0xF7;
 	}
 	ADCSRA |= (1 << ADSC);
@@ -106,7 +106,7 @@ int main(void)
 				
 				if(next_dest == f) {
 					continue;
-				} else {
+					} else {
 					s = before_move;
 				}
 				break;
@@ -127,12 +127,12 @@ int main(void)
 				// turn motor volt (B5, B6)
 				if (next_dest > f) {
 					turn_flag = 1;
-						
+					
 					// turn motor for up
 					motor = (1 << PINB5);
-				} else {
+					} else {
 					turn_flag = 0;
-						
+					
 					// turn motor for down
 					motor = (1 << PINB6);
 				}
@@ -147,15 +147,15 @@ int main(void)
 				ir_pressed = ir_key_check();
 				if(ir_pressed == 0xFF || ir_pressed == f) {
 					continue;
-				} else if(ir_pressed == next_dest) {
+					} else if(ir_pressed == next_dest) {
 					temp_count = 0;
 					s = slow_move;
 					_delay_ms(20);
-				} else if(turn_flag && ir_pressed == f+1) {
+					} else if(turn_flag && ir_pressed == f+1) {
 					f++;
-				} else if (!turn_flag && ir_pressed == f-1){
+					} else if (!turn_flag && ir_pressed == f-1){
 					f--;
-				} else {
+					} else {
 					show_floor(6);
 					_delay_ms(20);
 				}
@@ -168,11 +168,11 @@ int main(void)
 				if(temp_count == 0){
 					PORTB &= ~((1 << PINB6) | (1 << PINB5));
 					temp_count = 1;
-				} else {
+					} else {
 					PORTB |= motor;
 					temp_count = 0;
-				}			
-					
+				}
+				
 				if(ir_pressed == next_dest) {
 					f = next_dest;
 					// stop motor
@@ -249,17 +249,17 @@ unsigned int get_pressed_key()
 unsigned int key_convert(unsigned int key){
 	switch(key){
 		case 11:
-			return 0x00;
+		return 0x00;
 		case 0:
-			return 0x01;
+		return 0x01;
 		case 1:
-			return 0x02;
+		return 0x02;
 		case 2:
-			return 0x03;
+		return 0x03;
 		case 3:
-			return 0x04;
+		return 0x04;
 		default:
-			return 0xFF;
+		return 0xFF;
 	}
 }
 
@@ -358,7 +358,7 @@ int peek(struct Stack* stack)
 int search(struct Stack* stack, int item){
 	for (int i = 0; i < stack->top; i++) {
 		if(stack->array[i] == item)
-			return 1;
+		return 1;
 	}
 	return 0;
 }
